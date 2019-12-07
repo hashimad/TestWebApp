@@ -1,0 +1,95 @@
+﻿@using TestWebApp.ViewModel
+@model RegisterViewModel
+<!DOCTYPE html>
+<html>
+@{
+    /**/
+    Layout = null;
+    ViewBag.Title = "Register";
+    var error = ViewBag.Error ?? "" as string;
+       var success = ViewBag.Success as string;
+    
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Simple Login Page</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+   
+</head>
+<body>
+    <h2 class="text-center">Register</h2>
+    <hr />
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "frmRegister" }))
+    {
+        @Html.AntiForgeryToken()
+        if (!string.IsNullOrEmpty(error) && error.Length > 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.Raw(error)
+            </div>
+        }
+        if (!string.IsNullOrEmpty(success) && success.Length > 0)
+        {
+            <div class="alert alert-success">
+                @Html.Raw(ViewBag.Success)
+            </div>
+        }
+        <div class="row">
+            <div class="form-group col-md-6">
+                Email:
+                <input type="text" class="form-control input-new" id="Email" value="@Model.Email" name="Email">
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                Password:
+                <input type="password" class="form-control input-new" id="Password" value="@Model.Password" name="Password">
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                Confirm Password:
+                <input type="password" class="form-control input-new" id="CPassword" value="@Model.ConfirmPassword" name="ConfirmPassword">
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                First Name:
+                <input type="text" class="form-control input-new" id="FirsName" value="@Model.FirsName" name="FirsName">
+                @Html.ValidationMessageFor(m => m.FirsName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                Last Name:
+                <input type="text" class="form-control input-new" id="LastName" value="@Model.LastName" name="LastName">
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                Sex:
+                @Html.EnumDropDownListFor(m => m.Sex, "--Select Sex--", new { @class = "form-control input-new" })
+                @Html.ValidationMessageFor(m => m.Sex, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-6">
+                Date Of Birth
+                <input type="date" class="form-control input-new" id="DateOfBirth" value="@Model.DateOfBirth" name="DateOfBirth">
+                @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group col-md-12">
+
+            <input type="submit" class="btn btn-success" value="Register">
+
+        </div>
+
+    }
+    <div class="row m-t-25 text-left">
+        <div class="col-sm-12 col-xs-12 forgot-phone">
+            <a href="@Url.Action("Login", "Home")" class="text-right f-w-600 text-white"> Sign Up Here?</a>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
+
